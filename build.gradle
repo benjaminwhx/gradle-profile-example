@@ -1,0 +1,38 @@
+group 'com.jd.bt'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = 'com.jd.bt.profile.ProfileMain'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    maven {
+        url = 'http://maven.aliyun.com/nexus/content/groups/public/'
+    }
+    mavenCentral()
+}
+
+def env = project.hasProperty("env") ? property('env') : 'prod'
+apply from: "profile-${env}.gradle"
+
+sourceSets {
+    main {
+        resources {
+            srcDirs = ["src/main/resources", "src/main/profile/$env"]
+        }
+    }
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.jd.bt.profile.ProfileMain'
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.2.1'
+}
