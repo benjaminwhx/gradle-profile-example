@@ -13,7 +13,5 @@
 ```
 gradlew build
 
-gradle installDist -Penv=dev 或者 gradle installDist -Penv=prod
-
-./build/install/gradle-profile-example/bin/gradle-profile-example
+gradle run -Penv=dev 或者 gradle run -Penv=prod
 ```
